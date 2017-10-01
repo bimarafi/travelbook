@@ -3,28 +3,44 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { CaraPemesananPage } from '../pages/cara-pemesanan/cara-pemesanan';
+import { HomePage } from "../pages/home/home";
+import { HubungiKamiPage } from "../pages/hubungi-kami/hubungi-kami";
+import { LoginPage } from '../pages/login/login';
+import { MainPage } from '../pages/main/main';
+import { PengaturanPage } from "../pages/pengaturan/pengaturan";
+import { PoinSayaPage } from "../pages/poin-saya/poin-saya";
+import { ProfilePage } from "../pages/profile/profile";
+import { PromoBerlangsungPage } from "../pages/promo-berlangsung/promo-berlangsung";
+import { TentangKamiPage } from "../pages/tentang-kami/tentang-kami";
+import { TripPage } from "../pages/trip/trip"; 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-@NgModule({
-  declarations: [
+let pages:Array<any> = [
     MyApp,
+    CaraPemesananPage,
     HomePage,
-    ListPage
-  ],
+    HubungiKamiPage,
+    LoginPage,
+    MainPage,
+    PengaturanPage,
+    ProfilePage,
+    PoinSayaPage,
+    PromoBerlangsungPage,
+    TentangKamiPage,
+    TripPage
+  ];
+
+@NgModule({
+  declarations: pages,
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    ListPage
-  ],
+  entryComponents: pages,
   providers: [
     StatusBar,
     SplashScreen,

@@ -3,8 +3,14 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { MainPage } from '../pages/main/main';
+//import { LoginPage } from '../pages/login/login';
+import { CaraPemesananPage } from '../pages/cara-pemesanan/cara-pemesanan';
+import { HubungiKamiPage } from "../pages/hubungi-kami/hubungi-kami";
+//import { PengaturanPage } from "../pages/pengaturan/pengaturan";
+import { PoinSayaPage } from "../pages/poin-saya/poin-saya";
+import { PromoBerlangsungPage } from "../pages/promo-berlangsung/promo-berlangsung";
+import { TentangKamiPage } from "../pages/tentang-kami/tentang-kami";
 
 @Component({
   templateUrl: 'app.html'
@@ -12,17 +18,21 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = MainPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, icon: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Home', icon: "home", component: MainPage },
+      { title: 'Tentang kami', icon: "information-circle", component: TentangKamiPage },
+      { title: 'Cara pemesanan', icon: "list-box", component: CaraPemesananPage },
+      { title: 'Promo berlangsung', icon: "megaphone", component: PromoBerlangsungPage },
+      { title: 'Poin saya', icon: "heart", component: PoinSayaPage },
+      { title: 'Hubungi kami', icon: "call", component: HubungiKamiPage },
     ];
 
   }
