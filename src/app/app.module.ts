@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { InlineSVGModule } from "ng-inline-svg";
 
 import { MyApp } from './app.component';
 import { CaraPemesananPage } from '../pages/cara-pemesanan/cara-pemesanan';
@@ -14,6 +15,8 @@ import { ProfilePage } from "../pages/profile/profile";
 import { PromoBerlangsungPage } from "../pages/promo-berlangsung/promo-berlangsung";
 import { TentangKamiPage } from "../pages/tentang-kami/tentang-kami";
 import { TripPage } from "../pages/trip/trip"; 
+
+import { SearchPage } from "../pages/search/search";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,13 +33,16 @@ let pages:Array<any> = [
     PoinSayaPage,
     PromoBerlangsungPage,
     TentangKamiPage,
-    TripPage
+    TripPage,
+
+    SearchPage
   ];
 
 @NgModule({
   declarations: pages,
   imports: [
     BrowserModule,
+    InlineSVGModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
