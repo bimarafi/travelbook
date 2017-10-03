@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SearchPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar [color]="color">
@@ -18,6 +12,137 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-grid padding-top padding-left padding-right>
+    <ion-row>
+      Keberangkatan :
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+        <div class="plane berangkat" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
+      </ion-col>
+      <ion-col col-10>
+        <ion-input [ngClass]="color" placeholder="Pilih Kota / Bandara"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      Kedatangan :
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+        <div class="plane datang" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
+      </ion-col>
+      <ion-col col-10>
+        <ion-input [ngClass]="color" placeholder="Pilih Kota / Bandara"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top justify-content-center>
+      <ion-col col-5>
+        <button ion-button round small block mode="ios"
+        [outline]="roundtrip" [color]="color" (click)="roundtrip = false">Sekali Jalan</button>
+      </ion-col>
+      <ion-col col-5>
+        <button ion-button round small block mode="ios"
+        [outline]="!roundtrip" [color]="color" (click)="roundtrip = true">Pulang pergi</button>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top justify-content-center>
+      <ion-col col-6>
+        Pergi :
+      </ion-col>
+      <ion-col col-6>
+        Pulang :
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col col-6>
+        <div class="datepicker" [ngClass]="color">
+          <ion-icon name="calendar" [color]="color"></ion-icon>
+          <div class="day">10</div>
+          <div class="month">
+            <div>Sep</div>
+            <div>2017</div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col col-6>
+        <div class="datepicker" [ngClass]="color">
+          <ion-icon name="calendar" [color]="color"></ion-icon>
+          <div class="day">13</div>
+          <div class="month">
+            <div>Sep</div>
+            <div>2017</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Dewasa</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear>-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>2</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear>+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Anak-anak</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear>-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>20</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear>+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Bayi</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear>-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>20</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear>+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top>
+      Kelas penerbangan :
+    </ion-row>
+  </ion-grid>
+  <ion-row>
+    <ion-col no-padding>
+      <button class="kelas" ion-button mode="md" full
+      [ngClass]="!bussiness?'active':''" [color]="color" (click)="bussiness=false">Economy</button>
+    </ion-col>
+    <ion-col no-padding>
+      <button class="kelas" ion-button mode="md" full
+      [ngClass]="bussiness?'active':''" [color]="color" (click)="bussiness=true">Bussiness</button>
+    </ion-col>
+  </ion-row>
+  <ion-row padding-top>
+    <ion-col no-padding>
+      <button ion-button mode="ios" full [color]="color">Cari</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
