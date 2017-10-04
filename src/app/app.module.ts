@@ -1,56 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { InlineSVGModule } from "ng-inline-svg";
 
 import { MyApp } from './app.component';
-import { CaraPemesananPage } from '../pages/cara-pemesanan/cara-pemesanan';
-import { HomePage } from "../pages/home/home";
-import { HubungiKamiPage } from "../pages/hubungi-kami/hubungi-kami";
-import { LoginPage } from '../pages/login/login';
-import { MainPage } from '../pages/main/main';
-import { PengaturanPage } from "../pages/pengaturan/pengaturan";
-import { PoinSayaPage } from "../pages/poin-saya/poin-saya";
-import { ProfilePage } from "../pages/profile/profile";
-import { PromoBerlangsungPage } from "../pages/promo-berlangsung/promo-berlangsung";
-import { TentangKamiPage } from "../pages/tentang-kami/tentang-kami";
-import { TripPage } from "../pages/trip/trip"; 
 
-import { SearchPage } from "../pages/search/search";
+import { CaraPemesananPageModule } from '../pages/cara-pemesanan/cara-pemesanan.module';
+import { HubungiKamiPageModule } from "../pages/hubungi-kami/hubungi-kami.module";
+import { LoginPageModule } from '../pages/login/login.module';
+import { MainPageModule } from '../pages/main/main.module';
+import { PengaturanPageModule } from "../pages/pengaturan/pengaturan.module";
+import { PoinSayaPageModule } from "../pages/poin-saya/poin-saya.module";
+import { PromoBerlangsungPageModule } from "../pages/promo-berlangsung/promo-berlangsung.module";
+import { TentangKamiPageModule } from "../pages/tentang-kami/tentang-kami.module";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-let pages:Array<any> = [
-    MyApp,
-    CaraPemesananPage,
-    HomePage,
-    HubungiKamiPage,
-    LoginPage,
-    MainPage,
-    PengaturanPage,
-    ProfilePage,
-    PoinSayaPage,
-    PromoBerlangsungPage,
-    TentangKamiPage,
-    TripPage,
-
-    SearchPage
-  ];
+import { ApiService } from '../providers/api-service/api-service';
 
 @NgModule({
-  declarations: pages,
+  declarations: [
+    MyApp,
+  ],
   imports: [
     BrowserModule,
-    InlineSVGModule,
+    HttpModule,
+
+    CaraPemesananPageModule,
+    HubungiKamiPageModule,
+    LoginPageModule,
+    MainPageModule,
+    PengaturanPageModule,
+    PoinSayaPageModule,
+    PromoBerlangsungPageModule,
+    TentangKamiPageModule,
+
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
-  entryComponents: pages,
+  entryComponents: [
+    MyApp,
+  ],
   providers: [
+    ApiService,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
