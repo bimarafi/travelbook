@@ -1,4 +1,4 @@
-export interface Airport {
+export interface IAirport {
   airport_code:string;
   international:string;
   trans_name_id:string;

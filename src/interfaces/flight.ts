@@ -1,6 +1,6 @@
-import { FlightInfo } from "./flight-info";
+import { IFlightInfo } from "./flight-info";
 
-export interface Flight {
+export interface IFlight {
   flight_id:string;
   airlines_name:string;
   flight_number:string;
@@ -36,6 +36,6 @@ export interface Flight {
   arrival_flight_date:Date;
   arrival_flight_date_str:string;
   arrival_flight_date_str_short:string;
-  flight_infos:Array<FlightInfo>;
+  flight_infos:IFlightInfo[];
   sss_key:string;
 }

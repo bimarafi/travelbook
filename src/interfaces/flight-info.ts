@@ -1,4 +1,4 @@
-export interface FlightInfo {
+export interface IFlightInfo {
 
   flight_number: string;
   class: string;

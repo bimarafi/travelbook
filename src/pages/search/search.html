@@ -22,7 +22,7 @@
         <div class="plane berangkat" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
       </ion-col>
       <ion-col col-10>
-        <ion-input [ngClass]="color" placeholder="Pilih Kota / Bandara"></ion-input>
+        <ion-input [ngClass]="color" [value]="data.from.text" placeholder="Pilih Kota / Bandara"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -33,17 +33,15 @@
         <div class="plane datang" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
       </ion-col>
       <ion-col col-10>
-        <ion-input [ngClass]="color" placeholder="Pilih Kota / Bandara"></ion-input>
+        <ion-input [ngClass]="color" [value]="data.to.text" placeholder="Pilih Kota / Bandara"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row padding-top justify-content-center>
       <ion-col col-5>
-        <button ion-button round small block mode="ios"
-        [outline]="roundtrip" [color]="color" (click)="roundtrip = false">Sekali Jalan</button>
+        <button ion-button round small block mode="ios" [outline]="data.roundtrip" [color]="color" (click)="data.roundtrip = false">Sekali Jalan</button>
       </ion-col>
       <ion-col col-5>
-        <button ion-button round small block mode="ios"
-        [outline]="!roundtrip" [color]="color" (click)="roundtrip = true">Pulang pergi</button>
+        <button ion-button round small block mode="ios" [outline]="!data.roundtrip" [color]="color" (click)="data.roundtrip = true">Pulang pergi</button>
       </ion-col>
     </ion-row>
     <ion-row padding-top justify-content-center>
@@ -58,20 +56,20 @@
       <ion-col col-6>
         <div class="datepicker" [ngClass]="color">
           <ion-icon name="calendar" [color]="color"></ion-icon>
-          <div class="day">10</div>
+          <div class="day">{{data.goDate | date:'dd'}}</div>
           <div class="month">
-            <div>Sep</div>
-            <div>2017</div>
+            <div>{{data.goDate | date:'MMM'}}</div>
+            <div>{{data.goDate | date:'y'}}</div>
           </div>
         </div>
       </ion-col>
       <ion-col col-6>
         <div class="datepicker" [ngClass]="color">
           <ion-icon name="calendar" [color]="color"></ion-icon>
-          <div class="day">13</div>
+          <div class="day">{{data.retDate | date:'dd'}}</div>
           <div class="month">
-            <div>Sep</div>
-            <div>2017</div>
+            <div>{{data.retDate | date:'MMM'}}</div>
+            <div>{{data.retDate | date:'y'}}</div>
           </div>
         </div>
       </ion-col>
@@ -82,13 +80,13 @@
         <div class="penumpang" [ngClass]="color">
           <ion-row align-items-center>
             <ion-col col-4>
-              <button ion-button clear>-</button>
+              <button ion-button clear [disabled]="data.adult===0" (click)="data.adult = decrease(data.adult)">-</button>
             </ion-col>
             <ion-col col-4>
-              <div class="num" text-center>2</div>
+              <div class="num" text-center>{{data.adult}}</div>
             </ion-col>
             <ion-col col-4>
-              <button ion-button clear>+</button>
+              <button ion-button clear [disabled]="data.adult===99" (click)="data.adult = increase(data.adult)">+</button>
             </ion-col>
           </ion-row>
         </div>
@@ -98,13 +96,13 @@
         <div class="penumpang" [ngClass]="color">
           <ion-row align-items-center>
             <ion-col col-4>
-              <button ion-button clear>-</button>
+              <button ion-button clear [disabled]="data.child===0" (click)="data.child = decrease(data.child)">-</button>
             </ion-col>
             <ion-col col-4>
-              <div class="num" text-center>20</div>
+              <div class="num" text-center>{{data.child}}</div>
             </ion-col>
             <ion-col col-4>
-              <button ion-button clear>+</button>
+              <button ion-button clear [disabled]="data.child===99" (click)="data.child = increase(data.child)">+</button>
             </ion-col>
           </ion-row>
         </div>
@@ -114,13 +112,13 @@
         <div class="penumpang" [ngClass]="color">
           <ion-row align-items-center>
             <ion-col col-4>
-              <button ion-button clear>-</button>
+              <button ion-button clear [disabled]="data.infant===0" (click)="data.infant = decrease(data.infant)">-</button>
             </ion-col>
             <ion-col col-4>
-              <div class="num" text-center>20</div>
+              <div class="num" text-center>{{data.infant}}</div>
             </ion-col>
             <ion-col col-4>
-              <button ion-button clear>+</button>
+              <button ion-button clear [disabled]="data.infant===99" (click)="data.infant = increase(data.infant)">+</button>
             </ion-col>
           </ion-row>
         </div>
@@ -132,12 +130,10 @@
   </ion-grid>
   <ion-row>
     <ion-col no-padding>
-      <button class="kelas" ion-button mode="md" full
-      [ngClass]="!bussiness?'active':''" [color]="color" (click)="bussiness=false">Economy</button>
+      <button class="kelas" ion-button mode="md" full [ngClass]="!data.bussiness?'active':''" [color]="color" (click)="data.bussiness=false">Economy</button>
     </ion-col>
     <ion-col no-padding>
-      <button class="kelas" ion-button mode="md" full
-      [ngClass]="bussiness?'active':''" [color]="color" (click)="bussiness=true">Bussiness</button>
+      <button class="kelas" ion-button mode="md" full [ngClass]="data.bussiness?'active':''" [color]="color" (click)="data.bussiness=true">Bussiness</button>
     </ion-col>
   </ion-row>
   <ion-row padding-top>
