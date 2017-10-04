@@ -16,7 +16,7 @@ export class HomePage {
   types: Array<{ name: string, text: string, icon: any }> = [
     { name: 'domestic', text: 'Domestic Flights', icon: this.icons.flight },
     { name: 'international', text: 'International Flights', icon: this.icons.flight },
-    { name: 'hotel', text: 'Hotels', icon: this.icons.hotel }
+    //{ name: 'hotel', text: 'Hotels', icon: this.icons.hotel }
   ];
   index: number;
 
@@ -25,7 +25,7 @@ export class HomePage {
   }
 
   search() {
-    this.app.getRootNav().push(SearchPage, this.types[this.index]);
+    this.app.getRootNavs()[0].push(SearchPage, this.types[this.index]);
   }
 
   next() {
