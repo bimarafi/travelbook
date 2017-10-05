@@ -18,13 +18,13 @@
   <ion-row>
     <ion-img style="contain: none;" [src]="types[index].icon.banner"></ion-img>
   </ion-row>
-  <ion-grid padding-vertical>
+  <ion-grid padding-top padding-bottom>
     <ion-row align-items-center (swipe)="swipeEvent($event)">
       <ion-col col-1 offset-1>
-        <div [inlineSVG]="'assets/svg/arrow.svg'" style="transform:rotateY(180deg)" (click)="prev()"></div>
+        <div [inlineSVG]="'assets/svg/arrow.svg'" class="back-arrow" (click)="prev()"></div>
       </ion-col>
       <ion-col col-8>
-        <div [inlineSVG]="types[index].icon.icon" [ngClass]="types[index].name"></div>
+        <div class="circle" [inlineSVG]="types[index].icon.icon" [ngClass]="types[index].name"></div>
       </ion-col>
       <ion-col col-1>
         <div [inlineSVG]="'assets/svg/arrow.svg'" (click)="next()"></div>
