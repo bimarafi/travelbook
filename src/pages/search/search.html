@@ -15,25 +15,27 @@
 <ion-content>
   <ion-grid padding-top padding-left padding-right>
     <ion-row>
-      Keberangkatan :
+      Keberangkatan:
     </ion-row>
     <ion-row>
       <ion-col col-2>
         <div class="plane berangkat" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
       </ion-col>
       <ion-col col-10>
-        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="data.from.text" (click)="presentModal('flightfrom')"></ion-input>
+        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="data.from.text" (click)="presentModal('flightfrom')"
+          (ionFocus)="presentModal('flightfrom')"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
-      Kedatangan :
+      Kedatangan:
     </ion-row>
     <ion-row>
       <ion-col col-2>
         <div class="plane datang" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
       </ion-col>
       <ion-col col-10>
-        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="data.to.text" (click)="presentModal('flightto')"></ion-input>
+        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="data.to.text" (click)="presentModal('flightto')"
+          (ionFocus)="presentModal('flightto')"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row padding-top justify-content-center>
@@ -54,7 +56,7 @@
     </ion-row>
     <ion-row justify-content-center>
       <ion-col col-6>
-        <div class="datepicker" [ngClass]="color" (click)="date1.setFocus()">
+        <div class="datepicker" [ngClass]="color">
           <ion-icon name="calendar" [color]="color"></ion-icon>
           <div class="day">{{data.goDate | date:'dd'}}</div>
           <div class="month">
@@ -62,10 +64,10 @@
             <div>{{data.goDate | date:'y'}}</div>
           </div>
         </div>
-        <ion-input hidden type="date" #date1></ion-input>
+        <ion-datetime [(ngModel)]="data.goDate"></ion-datetime>
       </ion-col>
       <ion-col col-6>
-        <div class="datepicker" [ngClass]="color" (click)="date2.setFocus()">
+        <div class="datepicker" [ngClass]="color">
           <ion-icon name="calendar" [color]="color"></ion-icon>
           <div class="day">{{data.retDate | date:'dd'}}</div>
           <div class="month">
@@ -73,7 +75,7 @@
             <div>{{data.retDate | date:'y'}}</div>
           </div>
         </div>
-        <ion-input type="date" #date2></ion-input>
+        <ion-datetime [(ngModel)]="data.retDate"></ion-datetime>
       </ion-col>
     </ion-row>
     <ion-row padding-top>
@@ -127,7 +129,7 @@
       </ion-col>
     </ion-row>
     <ion-row padding-top>
-      Kelas penerbangan :
+      Kelas penerbangan:
     </ion-row>
   </ion-grid>
   <ion-row>
@@ -140,7 +142,7 @@
   </ion-row>
   <ion-row padding-top>
     <ion-col no-padding>
-      <button ion-button mode="ios" full [color]="color">Cari</button>
+      <button ion-button mode="ios" full [color]="color" (click)="search()">Cari</button>
     </ion-col>
   </ion-row>
 </ion-content>

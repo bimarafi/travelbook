@@ -30,6 +30,12 @@ page-search {
       padding: 0.2rem;
     }
   }
+  ion-datetime{
+    height: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
   .penumpang-title{
     &.domestic {
       color: color($colors,domestic,base);
