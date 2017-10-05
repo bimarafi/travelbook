@@ -17,6 +17,15 @@ page-home {
     height: 0.3rem;
   }
 
+  .back-arrow {
+    svg{
+      transform: rotate(180deg);
+    }
+  }
+  svg{
+    width: 100%;
+    height: 100%;
+  }
   .promo {
     border-bottom: 2px solid #ff4a00;
     padding-bottom: 0.5rem;
