@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { SearchPage } from './search';
 
 import { SearchModalPageModule } from "../modals/search-modal/search-modal.module";
+import { SearchResultPageModule } from "../search-result/search-result.module";
 import { InlineSVGModule } from "ng-inline-svg";
 
 @NgModule({
@@ -12,6 +13,7 @@ import { InlineSVGModule } from "ng-inline-svg";
   imports: [
     InlineSVGModule,
     SearchModalPageModule,
+    SearchResultPageModule,
     IonicPageModule.forChild(SearchPage),
   ],
 })

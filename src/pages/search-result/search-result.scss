@@ -1,3 +1,75 @@
 page-search-result {
 
+  .domestic {
+    color: color($colors,domestic,base);
+    fill: color($colors,domestic,base);
+  }
+
+  .international {
+    color: color($colors,international,base);
+    fill: color($colors,international,base);
+  }
+
+  .hotel {
+    color: color($colors,hotel,base);
+    fill: color($colors,hotel,base);
+  }
+  .price{
+    color: #f7931e;
+  }
+
+  .subtitle{
+    font-size: 1.6rem;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .date{
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 1.3rem;
+  }
+  .airport-text{
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  .plane-icon{
+    height: 1.5rem;
+    justify-content: center;
+    display: flex;
+    border-bottom: 1px dashed;
+    margin-bottom: 1.5rem;
+    svg{
+      height: 2.8rem;
+    }
+  }
+  ion-list{
+    border: 2rem solid #f4f4f4;
+    border-bottom-width: 1rem;
+    border-radius: 2rem;
+    margin: 1rem !important;
+    background: #f4f4f4;
+  }
+  ion-item{
+    border-radius: 1rem;
+    margin-bottom: 1rem !important;
+    .item-inner{
+      border-bottom: 0px !important;
+    }
+  }
+  ion-row{
+    &.button-bar{
+      border: 0.2rem solid #f4f4f4;
+      border-radius: 1rem;
+      margin: 1rem;
+    }
+  }
+  button{
+    &.button-small{
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-transform: capitalize;
+      margin: 0px;
+    }
+  }
 }

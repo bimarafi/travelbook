@@ -18,7 +18,7 @@
   <ion-row>
     <ion-img style="contain: none;" [src]="types[index].icon.banner"></ion-img>
   </ion-row>
-  <ion-grid padding-top padding-bottom>
+  <ion-grid padding-vertical>
     <ion-row align-items-center (swipe)="swipeEvent($event)">
       <ion-col col-1 offset-1>
         <div [inlineSVG]="'assets/svg/arrow.svg'" class="back-arrow" (click)="prev()"></div>
