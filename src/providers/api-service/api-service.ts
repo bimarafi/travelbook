@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 import {
-  IAirportCode, IResponse
+  IAirportCode, IResponse, IFlight
 } from "../../interfaces";
 /*
   API service v1
@@ -40,6 +40,14 @@ export class ApiService {
         let results: IResponse.ITokenReqResult = response.json();
         return results.token;
       });
+  }
+
+  searchFlight(): Observable<IFlight[]> {
+    return this.http.get(this.API_URL + "search_flight", { params: { q: name } })
+    .map((response) => {
+      let results: IFlight = response.json();
+      return results;
+    });
   }
 
 }
