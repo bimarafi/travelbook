@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, Searchbar } from 'ionic-angular';
 
 import { IAirportCode } from "../../../interfaces/";
 import { ApiService } from "../../../providers/api-service/api-service";
@@ -8,7 +8,7 @@ import { ApiService } from "../../../providers/api-service/api-service";
   templateUrl: 'search-modal.html',
 })
 export class SearchModalPage {
-  @ViewChild('search') searchText ;
+  @ViewChild('input') input: Searchbar;
   title: string = "";
   type: string;
   items: IAirportCode[];
@@ -31,12 +31,13 @@ export class SearchModalPage {
   }
 
   ionViewDidLoad() {
-    setTimeout(()=>{
-      this.searchText.setFocus();
-    }, 200)
-    console.log('ionViewDidLoad SearchModalPage');
-  }
 
+  }
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.input.setFocus();
+    }, 150);
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }

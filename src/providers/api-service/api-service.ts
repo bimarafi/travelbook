@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Http, Headers } from '@angular/http';
+import { Platform } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
@@ -13,11 +14,15 @@ import {
 */
 @Injectable()
 export class ApiService {
+  API_URL: string = 'http://api.traveltravelbook.com/';
   headers: Headers;
   token: string;
-  constructor(public http: Http, public datePipe: DatePipe) {
+  constructor(public http: Http, public datePipe: DatePipe, public platform:Platform) {
     this.headers = new Headers();
     this.headers.append('Accept', 'application/json');
+    if(platform.is('core')){
+      this.API_URL = '';
+    }
   }
 
   /**
@@ -26,7 +31,7 @@ export class ApiService {
    * @returns {Observable<IAirportCode[]>} Array airport code
    */
   getAirports(name: string): Observable<IAirportCode[]> {
-    return this.http.get("v1/airports", { params: { q: name } })
+    return this.http.get(this.API_URL + "v1/airports", { params: { q: name } })
       .map((response) => {
         let results: IResponse.IAirportSearchResults = response.json();
         return results.resources;
@@ -38,7 +43,7 @@ export class ApiService {
    * @returns {Observable<string>} token
    */
   getToken(): Observable<string> {
-    return this.http.get("v1/get_token")
+    return this.http.get(this.API_URL + "v1/get_token")
       .map((response) => {
         let results: IResponse.ITokenReqResult = response.json();
         this.token = results.token;
@@ -67,7 +72,7 @@ export class ApiService {
         sort: data.sort,
       }
     }
-    return this.http.post("v1/search_flight", body, { headers: this.headers })
+    return this.http.post(this.API_URL + "v1/search_flight", body, { headers: this.headers })
       .map((response) => {
         let results: IResponse.IFlightSearchResults = response.json();
         return results;
