@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title align="center">
+      <img src="assets/icon.png">
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="heart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-img style="contain: none;" [src]="types[index].icon.banner"></ion-img>
+  </ion-row>
+  <ion-grid padding-vertical>
+    <ion-row align-items-center (swipe)="swipeEvent($event)">
+      <ion-col col-1 offset-1>
+        <div [inlineSVG]="'assets/svg/arrow.svg'" class="back-arrow" (click)="prev()"></div>
+      </ion-col>
+      <ion-col col-8>
+        <div class="circle" [inlineSVG]="types[index].icon.icon" [ngClass]="types[index].name"></div>
+      </ion-col>
+      <ion-col col-1>
+        <div [inlineSVG]="'assets/svg/arrow.svg'" (click)="next()"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-10 offset-1>
+        <button ion-button big block round mode="ios" [color]="types[index].name" (click)="search()">{{types[index].text}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Promo -->
+  <div class="spacer"></div>
+  <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col col-8>
+          <h2 class="promo" text-center>Promo Flights</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center>
+        <ion-col col-8>
+          <ion-slides pager loop autoplay="5000" spaceBetween="15px">
+            <ion-slide style="background-color: #25b5ea">
+              <h1>Slide 1</h1>
+            </ion-slide>
+            <ion-slide style="background-color: #25b5ea">
+              <h1>Slide 2</h1>
+            </ion-slide>
+            <ion-slide style="background-color: #25b5ea">
+              <h1>Slide 3</h1>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="spacer"></div>
+    <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            <h2 class="promo" text-center>Promo Hotel</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            <ion-slides pager loop autoplay="5000" spaceBetween="15px">
+              <ion-slide style="background-color: #25b5ea">
+                <h1>Slide 1</h1>
+              </ion-slide>
+              <ion-slide style="background-color: #25b5ea">
+                <h1>Slide 2</h1>
+              </ion-slide>
+              <ion-slide style="background-color: #25b5ea">
+                <h1>Slide 3</h1>
+              </ion-slide>
+            </ion-slides>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-content>

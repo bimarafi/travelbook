@@ -1,0 +1,148 @@
+<ion-header>
+
+  <ion-navbar [color]="color">
+    <ion-title align="center">{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid padding-top padding-left padding-right>
+    <ion-row>
+      Keberangkatan:
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+        <div class="plane berangkat" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
+      </ion-col>
+      <ion-col col-10>
+        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="frmData.from.text" (click)="presentModal('flightfrom')"
+          (ionFocus)="presentModal('flightfrom')"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      Kedatangan:
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+        <div class="plane datang" [ngClass]="color" [inlineSVG]="'assets/svg/plane.svg'"></div>
+      </ion-col>
+      <ion-col col-10>
+        <ion-input placeholder="Pilih Kota / Bandara" [ngClass]="color" [value]="frmData.to.text" (click)="presentModal('flightto')"
+          (ionFocus)="presentModal('flightto')"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top justify-content-center>
+      <ion-col col-5>
+        <button ion-button round small block mode="ios" [outline]="frmData.roundtrip" [color]="color" (click)="roundTripToggle()">Sekali Jalan</button>
+      </ion-col>
+      <ion-col col-5>
+        <button ion-button round small block mode="ios" [outline]="!frmData.roundtrip" [color]="color" (click)="roundTripToggle()">Pulang pergi</button>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top justify-content-center>
+      <ion-col col-6>
+        Pergi :
+      </ion-col>
+      <ion-col col-6>
+        Pulang :
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col col-6>
+        <div class="datepicker" [ngClass]="color">
+          <ion-icon name="calendar" [color]="color"></ion-icon>
+          <div class="day">{{frmData.goDate | date:'dd'}}</div>
+          <div class="month">
+            <div>{{frmData.goDate | date:'MMM'}}</div>
+            <div>{{frmData.goDate | date:'y'}}</div>
+          </div>
+        </div>
+        <ion-datetime [(ngModel)]="frmData.goDate"></ion-datetime>
+      </ion-col>
+      <ion-col col-6>
+        <div class="datepicker" [ngClass]="frmData.roundtrip?color:'disabled'">
+          <ion-icon name="calendar" [color]="color"></ion-icon>
+          <div class="day">{{frmData.retDate | date:'dd'}}</div>
+          <div class="month">
+            <div>{{frmData.retDate | date:'MMM'}}</div>
+            <div>{{frmData.retDate | date:'y'}}</div>
+          </div>
+        </div>
+        <ion-datetime [disabled]="!frmData.roundtrip" [(ngModel)]="frmData.retDate"></ion-datetime>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Dewasa</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.adult===0" (click)="frmData.adult = decrease(frmData.adult)">-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>{{frmData.adult}}</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.adult===99" (click)="frmData.adult = increase(frmData.adult)">+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Anak-anak</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.child===0" (click)="frmData.child = decrease(frmData.child)">-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>{{frmData.child}}</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.child===99" (click)="frmData.child = increase(frmData.child)">+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col col-4>
+        <div class="penumpang-title" [ngClass]="color" text-center>Bayi</div>
+        <div class="penumpang" [ngClass]="color">
+          <ion-row align-items-center>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.infant===0" (click)="frmData.infant = decrease(frmData.infant)">-</button>
+            </ion-col>
+            <ion-col col-4>
+              <div class="num" text-center>{{frmData.infant}}</div>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button clear [disabled]="frmData.infant===99" (click)="frmData.infant = increase(frmData.infant)">+</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-top>
+      Kelas penerbangan:
+    </ion-row>
+  </ion-grid>
+  <ion-row>
+    <ion-col no-padding>
+      <button class="kelas" ion-button mode="md" full [ngClass]="!frmData.bussiness?'active':''" [color]="color" (click)="frmData.bussiness=false">Economy</button>
+    </ion-col>
+    <ion-col no-padding>
+      <button class="kelas" ion-button mode="md" full [ngClass]="frmData.bussiness?'active':''" [color]="color" (click)="frmData.bussiness=true">Bussiness</button>
+    </ion-col>
+  </ion-row>
+  <ion-row padding-top>
+    <ion-col no-padding>
+      <button ion-button mode="ios" full [color]="color" (click)="search()">Cari</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
