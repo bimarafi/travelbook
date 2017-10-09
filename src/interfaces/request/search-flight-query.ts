@@ -9,11 +9,15 @@
  * @property {number} infant Jumlah penumpang bayi
  */
 export interface ISearchFlightQuery {
-  from: string;
-  to: string;
-  go_date: number;
-  ret_date: number;
-  adult: number;
-  child: number;
-  infant: number;
+  token: string;
+  flight_form: {
+    from: string;
+    to: string;
+    go_date: string;
+    ret_date: string;
+    adult: number;
+    child: number;
+    infant: number;
+    sort: any;
+  }
 }

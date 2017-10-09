@@ -39,6 +39,11 @@ page-search-result {
     display: flex;
     border-bottom: 1px dashed;
     margin-bottom: 1.5rem;
+    &.return{
+      svg{
+        transform: rotate(180deg);
+      }
+    }
     svg{
       height: 2.8rem;
     }

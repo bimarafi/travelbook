@@ -29,6 +29,11 @@ page-search {
       font-size: 1.5rem;
       padding: 0.2rem;
     }
+    &.disabled{
+      border-color: #a8acab;
+      color: #a8acab;
+      fill: #a8acab;
+    }
   }
   ion-datetime{
     height: 0 !important;

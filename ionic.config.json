@@ -1,8 +1,14 @@
 {
-  "name": "TravelTravelBook",
-  "app_id": "6ded95e3",
+  "name": "Travel Travel Book",
+  "app_id": "26d809e4",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/v1",
+      "proxyUrl": "http://api.traveltravelbook.com/v1"
+    }
+  ]
 }

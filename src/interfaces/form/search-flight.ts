@@ -10,4 +10,5 @@ export interface ISearchFlightFormData {
   child: number;
   infant: number;
   bussiness: boolean;
+  sort:any;
 }

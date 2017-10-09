@@ -1,6 +1,6 @@
 {
-    "name": "TravelTravelBook",
-    "version": "0.0.1",
+    "name": "travel-travel-book",
+    "version": "0.1.1",
     "author": "Ionic Framework",
     "homepage": "http://ionicframework.com/",
     "private": true,
@@ -54,8 +54,8 @@
         },
         "platforms": [
             "android",
-            "ios",
-            "browser"
+            "browser",
+            "ios"
         ]
     }
 }

@@ -10,17 +10,17 @@
 </ion-header>
 
 <ion-content>
-  <div class="subtitle" text-center>{{subtitle}}</div>
-  <div class="date" text-center>{{data.go_det.formatted_date}}</div>
+  <div class="subtitle" text-center>{{data.subtitle}}</div>
+  <div class="date" text-center>{{data.date}}</div>
   <ion-row align-items-center [ngClass]="color">
     <ion-col class="airport-text" col-4 text-center>
-      {{data.go_det.dep_airport.short_name}}
+      {{searchResult.go_det.dep_airport.short_name}}
     </ion-col>
     <ion-col col-4>
-      <div class="plane-icon" [inlineSVG]="'assets/svg/plane.svg'"></div>
+      <div class="plane-icon" [ngClass]="isReturn?'return':''" [inlineSVG]="'assets/svg/plane.svg'"></div>
     </ion-col>
     <ion-col class="airport-text" col-4 text-center>
-      {{data.go_det.arr_airport.short_name}}
+      {{searchResult.go_det.arr_airport.short_name}}
     </ion-col>
   </ion-row>
   <ion-row align-items-center class="button-bar">
@@ -44,14 +44,14 @@
     </ion-col>
   </ion-row>
   <ion-list>
-    <ion-item *ngFor="let item of data.departures.result">
+    <ion-item *ngFor="let item of data.list" (click)="next(item)" >
       <ion-thumbnail item-start>
         <img [src]="item.image">
       </ion-thumbnail>
       <h2>{{item.airlines_name}}</h2>
       <p>{{item.simple_departure_time}} - {{item.simple_arrival_time}}</p>
       <p>{{item.duration}}, {{item.stop}}</p>
-      <h2 class="price" item-end>{{item.price_value | currency:data.diagnostic.currency:true}}</h2>
+      <h2 class="price" item-end>{{item.price_value | currency:searchResult.diagnostic.currency:true}}</h2>
     </ion-item>
   </ion-list>
 </ion-content>

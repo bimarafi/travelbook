@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -43,6 +44,7 @@ import { ApiService } from '../providers/api-service/api-service';
   ],
   providers: [
     ApiService,
+    DatePipe,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler }

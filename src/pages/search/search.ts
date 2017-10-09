@@ -4,9 +4,9 @@ import { IonicPage, NavController, NavParams, ModalController, LoadingController
 import { SearchResultPage } from "../search-result/search-result";
 import { SearchModalPage } from "../modals/search-modal/search-modal";
 
-import { IForm, IAirportCode } from "../../interfaces/";
+import { IForm, IResponse, IAirportCode } from "../../interfaces/";
 
-import { Http } from '@angular/http'; //sementara
+import { ApiService } from "../../providers/api-service/api-service";
 @IonicPage()
 @Component({
   selector: 'page-search',
@@ -17,9 +17,9 @@ export class SearchPage {
   loading: Loading;
   title: string;
   color: string;
-  data: IForm.ISearchFlightFormData;
+  frmData: IForm.ISearchFlightFormData;
   constructor(
-    private http: Http, //sementara
+    private api: ApiService,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
@@ -27,21 +27,31 @@ export class SearchPage {
 
     this.color = this.navParams.get('name');
     this.title = this.navParams.get('text');
-    this.data = {
+    this.frmData = {
       from: { id: '', text: '' },
       to: { id: '', text: '' },
-      goDate: Date.now(), retDate: Date.now(),
+      goDate: Date.now(), retDate: undefined,
       adult: 1, child: 0, infant: 0,
-      roundtrip: false, bussiness: false
+      roundtrip: false, bussiness: false, sort: undefined
     }
   }
   ionViewDidLoad() {
+    this.api.getToken().subscribe();
   }
   increase(val: number) {
     return (val += 1);
   }
   decrease(val: number) {
     return (val -= 1);
+  }
+  roundTripToggle() {
+    if (this.frmData.roundtrip) {
+      this.frmData.roundtrip = false;
+      this.frmData.retDate = undefined;
+    } else {
+      this.frmData.roundtrip = true;
+      this.frmData.retDate = Date.now();
+    }
   }
   presentModal(val: string) {
     let modal = this.modalCtrl.create(SearchModalPage, { type: val });
@@ -52,10 +62,10 @@ export class SearchPage {
     if (ret) {
       switch (ret.type) {
         case "flightfrom":
-          this.data.from = ret.data;
+          this.frmData.from = ret.data;
           break;
         case "flightto":
-          this.data.to = ret.data;
+          this.frmData.to = ret.data;
           break;
 
         default:
@@ -69,20 +79,19 @@ export class SearchPage {
     });
   }
   search() {
-    let searchResult;
+    let searchResult: IResponse.IFlightSearchResults;
     this.createLoading();
     this.loading.present();
-    //load example data
-    this.http.get('/assets/example-data/search_flight.json').subscribe(
+    this.api.searchFlight(this.frmData).subscribe(
       res => {
-        searchResult = res.json();
-        //simulasi loading menunggu api
-        setTimeout(()=>{
-          this.loading.dismiss();
-          this.navCtrl.push(SearchResultPage, { data: searchResult, color: this.color });
-        }, 3000);
+        searchResult = res;
+        this.loading.dismiss();
+        this.navCtrl.push(SearchResultPage, { result: searchResult, color: this.color });
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this.loading.dismiss();
+      }
     );
   }
 }
