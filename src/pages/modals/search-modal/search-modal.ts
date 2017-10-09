@@ -21,6 +21,7 @@ export class SearchModalPage {
     switch (this.type) {
       case "flightfrom":
         this.title = "Keberangkatan"
+        break;
       case "flightto":
         this.title = "Kedatangan"
         break;
