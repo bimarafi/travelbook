@@ -21,7 +21,9 @@ export class SearchResultPage {
     if (this.isReturn) {
       this.data = {
         subtitle: "Kedatangan",
-        list: this.searchResult.returns.result,
+        list: this.searchResult.returns.result.sort(function(a, b){
+          return ((parseInt(a.price_value.toString()) === parseInt(b.price_value.toString())) ? 0 : ((parseInt(a.price_value.toString()) > parseInt(b.price_value.toString())) ? 1 : -1))
+        }),
         date: this.searchResult.ret_det.formatted_date,
       }
     } else {
