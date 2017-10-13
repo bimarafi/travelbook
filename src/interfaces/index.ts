@@ -1,7 +1,6 @@
 export { IAirport } from "./airport";
 export { IAirportCode } from "./airport-code";
 export { IDiagnostic } from "./diagnostic";
-export { IDiagnosticFlightData } from './diagnotic-flight-data';
 export { IFlight } from "./flight";
 export { IFlightInfo } from "./flight-info";
 export { IRequired } from './required';

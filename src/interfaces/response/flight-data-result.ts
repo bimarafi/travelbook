@@ -1,8 +1,7 @@
-import { IDiagnosticFlightData, IFlight, IRequired } from "../";
-//import { ISearchFlightQuery } from "../request";
+import { IDiagnostic, IFlight, IRequired } from "../";
 
 export interface IFlightDataResult {
-  diagnostic: IDiagnosticFlightData;
+  diagnostic: { IDiagnostic, lioncaptcha: string, lionsessionid: string };
   output_type: string;
   required: {
     separator: IRequired,
