@@ -5,4 +5,5 @@ export interface IRequired {
   FieldText: string;
   category: string;
   disabled: string;
+  resource: {id: string, name: string}[];
 }

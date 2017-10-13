@@ -1,17 +1,17 @@
 import { IDiagnostic, IFlight, IRequired } from "../";
 
 export interface IFlightDataResult {
-  diagnostic: { IDiagnostic, lioncaptcha: string, lionsessionid: string };
+  diagnostic: IDiagnostic;
   output_type: string;
   required: {
     separator: IRequired,
-    conSalutation: { IRequired, resource: {id: string, name: string}[]},
+    conSalutation: IRequired,
     conFirstName: IRequired,
     conLastName: IRequired,
     conPhone: IRequired,
     conEmailAddress: IRequired,
     separator_adult1: IRequired,
-    titleal: { IRequired, resource: {id: string, name: string}[]},
+    titleal: IRequired,
     firstnameal: IRequired,
     lastnameal: IRequired
   };

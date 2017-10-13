@@ -6,4 +6,6 @@ export interface IDiagnostic {
   confirm: string;
   lang: string;
   currency: string;
+  lioncaptcha: string;
+  lionsessionid: string;
 }
