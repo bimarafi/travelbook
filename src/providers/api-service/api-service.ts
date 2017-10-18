@@ -79,4 +79,12 @@ export class ApiService {
       });
   }
 
+  getFlightData(data: IRequest.ISearchFlightDataQuery): Observable<IResponse.IFlightDataResult> {
+    return this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
+      .map((response) => {
+        let result: IResponse.IFlightDataResult = response.json();
+        return result;
+      });
+  }
+
 }
