@@ -1,43 +1,57 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController, Loading, AlertController } from 'ionic-angular';
 
 import { SearchResultPage } from "../search-result/search-result";
 import { SearchModalPage } from "../modals/search-modal/search-modal";
 
-import { IForm, IResponse, IAirportCode } from "../../interfaces/";
+import { IResponse, IAirportCode } from "../../interfaces/";
 
 import { ApiService } from "../../providers/api-service/api-service";
+
+import { SearchPageValidator } from "../../validators/search-page-validator";
+
+
 @IonicPage()
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
 })
 
-export class SearchPage {
+export class SearchPage extends SearchPageValidator {
   loading: Loading;
   title: string;
   color: string;
-  frmData: IForm.ISearchFlightFormData;
+  token: string;
   constructor(
     private api: ApiService,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public navParams: NavParams) {
+    public navParams: NavParams, 
+    public datePipe: DatePipe) {
 
+    super(alertCtrl);
     this.color = this.navParams.get('name');
     this.title = this.navParams.get('text');
     this.frmData = {
       from: { id: '', text: '' },
       to: { id: '', text: '' },
-      goDate: Date.now(), retDate: undefined,
+      goDate: this.datePipe.transform(Date.now(), 'yyyy-MM-dd'),
+      retDate: undefined,
       adult: 1, child: 0, infant: 0,
       roundtrip: false, bussiness: false, sort: undefined
     }
   }
   ionViewDidLoad() {
-    this.api.getToken().subscribe();
+    this.presentLoading();
+    this.api.getToken()
+      .then(token => {
+        this.token = token
+        this.loading.dismiss();
+      })
+      .catch(err => console.log(err.message));
   }
   increase(val: number) {
     return (val += 1);
@@ -51,7 +65,7 @@ export class SearchPage {
       this.frmData.retDate = undefined;
     } else {
       this.frmData.roundtrip = true;
-      this.frmData.retDate = Date.now();
+      this.frmData.retDate = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
     }
   }
   presentModal(val: string) {
@@ -63,90 +77,34 @@ export class SearchPage {
     if (ret) {
       switch (ret.type) {
         case "flightfrom":
-          this.frmData.from = ret.data;
-          break;
+          this.frmData.from = ret.data; break;
         case "flightto":
-          this.frmData.to = ret.data;
-          break;
-
+          this.frmData.to = ret.data; break;
         default:
           break;
       }
     }
   }
-  createLoading() {
+  presentLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Mohon tunggu...'
     });
+    this.loading.present();
   }
   search() {
     let searchResult: IResponse.IFlightSearchResults;
-    this.createLoading();
-    this.loading.present();
-    if (this.frmData.from.id == this.frmData.to.id) {
-      this.loading.dismiss();
-      let alert = this.alertCtrl.create({
-        title: 'Peringatan',
-        subTitle: 'Kota keberangkatan dan kota tujuan harus berbeda',
-        buttons: ['OK']
-      });
-      alert.present();
-      this.frmData.to.id = '';
-      this.frmData.to.text = '';
-    } else if (this.frmData.to.id == '') {
-      this.loading.dismiss();
-      let alert = this.alertCtrl.create({
-        title: 'Peringatan',
-        subTitle: 'Silahkan pilih bandara keberangkatan dan tujuan',
-        buttons: ['OK']
-      });
-      alert.present();
-    } else if (this.frmData.adult == 0) {
-      if (this.frmData.child > 0 || this.frmData.infant > 0) {
-        this.loading.dismiss();
-        let alert = this.alertCtrl.create({
-          title: 'Peringatan',
-          subTitle: 'Penumpang dewasa minimal 1 orang',
-          buttons: ['OK']
-        });
-        alert.present();
-      } else {
-        this.loading.dismiss();
-        let alert = this.alertCtrl.create({
-          title: 'Peringatan',
-          subTitle: 'Harap pilih jumlah penumpang',
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-    } else if (Date.parse(this.frmData.goDate.toString())/1000 < Date.parse(new Date().toDateString())/1000) {
-      this.loading.dismiss();
-      let alert = this.alertCtrl.create({
-        title: 'Peringatan',
-        subTitle: 'Maaf, tanggal yang dipilih sudah lewat. Silahkan pilih tanggal lain',
-        buttons: ['OK']
-      });
-      alert.present();
-    } else if (this.frmData.retDate != undefined && Date.parse(this.frmData.retDate.toString())/1000 < Date.parse(this.frmData.goDate.toString())/1000) {
-      this.loading.dismiss();
-      let alert = this.alertCtrl.create({
-        title: 'Peringatan',
-        subTitle: 'Tanggal pulang minimal harus sama atau lebih besar dari tanggal pergi. Silahkan pilih tanggal lain',
-        buttons: ['OK']
-      });
-      alert.present();
-    } else {
-      this.api.searchFlight(this.frmData).subscribe(
-        res => {
+    if (this.isValid()) {
+      this.presentLoading();
+      this.api.searchFlight(this.frmData)
+        .then(res => {
           searchResult = res;
           this.loading.dismiss();
           this.navCtrl.push(SearchResultPage, { result: searchResult, color: this.color });
-        },
-        err => {
-          console.log(err);
+        })
+        .catch(err => {
+          console.log(err.message);
           this.loading.dismiss();
-        }
-      );
+        });
     }
   }
 }
