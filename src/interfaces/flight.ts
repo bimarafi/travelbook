@@ -33,7 +33,7 @@ export interface IFlight {
   best_deal: boolean;
   duration: string;
   image: string;
-  departure_flight_dat: Date;
+  departure_flight_date: Date;
   departure_flight_date_str: string;
   departure_flight_date_str_short: string;
   arrival_flight_date: Date;
