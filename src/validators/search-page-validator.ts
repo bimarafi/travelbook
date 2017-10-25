@@ -10,6 +10,7 @@ export class SearchPageValidator {
     }
     isValid() {
         let today = new Date().setHours(0, 0, 0);
+        let diffDay = Math.floor((((Date.parse(this.frmData.goDate)) - today) / 1000)/86400);
         if (this.frmData.from.id === '' && this.frmData.to.id === '') {
             this.presentAlert('Silahkan pilih bandara keberangkatan dan tujuan');
             return false;
@@ -34,6 +35,18 @@ export class SearchPageValidator {
         }
         if (this.frmData.adult === 0) {
             this.presentAlert('Penumpang dewasa minimal 1 orang');
+            return false;
+        }
+        if (this.frmData.adult > 6 || this.frmData.child > 6 || this.frmData.infant > 6) {
+            this.presentAlert('Jumlah penumpang tiap tipe tidak lebih dari 6 orang');
+            return false;
+        }
+        if (this.frmData.infant > this.frmData.adult) {
+            this.presentAlert('Jumlah bayi tidak lebih dari jumlah dewasa');
+            return false;
+        }
+        if (diffDay > 360) {
+            this.presentAlert('Tanggal keberangkatan tidak lebih dari 360 hari');
             return false;
         }
         if (Date.parse(this.frmData.goDate)  < today) {
