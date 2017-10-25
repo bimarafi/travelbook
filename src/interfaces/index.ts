@@ -4,6 +4,7 @@ export { IDiagnostic } from "./diagnostic";
 export { IFlight } from "./flight";
 export { IFlightInfo } from "./flight-info";
 export { IRequired } from './required';
+export { IDestination } from "./destination";
 
 import * as IForm from "./form";
 export { IForm };
