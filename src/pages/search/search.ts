@@ -96,13 +96,12 @@ export class SearchPage extends SearchPageValidator {
       this.presentLoading();
       this.api.searchFlight(this.frmData)
         .then(result => {
-          console.log(result);
           this.loading.dismiss();
           this.navCtrl.push(SearchResultPage, { data: result, color: this.color });
         })
         .catch(err => {
-          console.log(err.message);
           this.loading.dismiss();
+          this.presentAlert(err.message);
         });
     }
   }

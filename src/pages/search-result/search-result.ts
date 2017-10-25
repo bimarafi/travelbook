@@ -72,7 +72,7 @@ export class SearchResultPage extends SearchResultPageValidator {
       console.log('Lanjut Ke Halaman Pemesanan');
     }
     if (this.searchResult.round_trip && !this.isReturn) {
-      this.navCtrl.push(SearchResultPage, { result: this.searchResult, color: this.color, is_return: true, depart_flight_id: item.flight_id });
+      this.navCtrl.push(SearchResultPage, { data: this.searchResult, color: this.color, is_return: true, depart_flight_id: item.flight_id });
     } else {
       if (this.isReturn) {
         this.dataQuery.return_flight_id = item.flight_id;
