@@ -11,6 +11,9 @@ export interface IFlight {
   price_adult: number
   price_child: number;
   price_infant: number;
+  count_adult: string;
+  count_child: string;
+  count_infant: string;
   timestamp: Date;
   has_food: boolean;
   multiplier: number;

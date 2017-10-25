@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 import { Platform } from 'ionic-angular';
-import 'rxjs/add/operator/map';
-
-import { Observable } from 'rxjs/Observable';
 
 import {
   IAirportCode, IForm, IResponse, IRequest
@@ -97,12 +94,16 @@ export class ApiService {
     });
   }
 
-  getFlightData(data: IRequest.ISearchFlightDataQuery): Observable<IResponse.IFlightDataResult> {
-    return this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
-      .map((response) => {
-        let result: IResponse.IFlightDataResult = response.json();
-        return result;
-      });
+  getFlightData(data: IRequest.ISearchFlightDataQuery): Promise<IResponse.IFlightDataResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
+        .subscribe(
+        response => {
+          let result: IResponse.IFlightDataResult = response.json();
+          resolve(result);
+        },
+        err => reject(err));
+    });
   }
 
 }
