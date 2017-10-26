@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams, ModalController, LoadingController
 import { SearchResultPage } from "../search-result/search-result";
 import { SearchModalPage } from "../modals/search-modal/search-modal";
 
-import { IResponse, IAirportCode } from "../../interfaces/";
+import { IAirportCode } from "../../interfaces/";
 
 import { ApiService } from "../../providers/api-service/api-service";
 
@@ -29,7 +29,7 @@ export class SearchPage extends SearchPageValidator {
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     public datePipe: DatePipe) {
 
     super(alertCtrl);
@@ -92,19 +92,24 @@ export class SearchPage extends SearchPageValidator {
     this.loading.present();
   }
   search() {
-    let searchResult: IResponse.IFlightSearchResults;
     if (this.isValid()) {
       this.presentLoading();
       this.api.searchFlight(this.frmData)
-        .then(res => {
-          searchResult = res;
+        .then(result => {
           this.loading.dismiss();
-          this.navCtrl.push(SearchResultPage, { result: searchResult, color: this.color });
+          this.navCtrl.push(SearchResultPage, { data: result, color: this.color });
         })
         .catch(err => {
-          console.log(err.message);
           this.loading.dismiss();
+          this.presentAlert(err.message);
         });
     }
+  }
+  minDate() {
+    return this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+  }
+  maxDate() {
+    let d = new Date();
+    return (d.getFullYear() + 1).toString();
   }
 }
