@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 import { Platform } from 'ionic-angular';
 
 import {
-  IAirportCode, IForm, IResponse, IRequest
+  IAirportCode, IForm, IResponse, IRequest, IPaymentOptions
 } from "../../interfaces";
 /*
   API service v1
@@ -68,8 +68,16 @@ export class ApiService {
     });
   }
 
-  getPaymentOption() {
-
+  getPaymentOption(): Promise<IPaymentOptions> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/payment_options")
+        .subscribe(
+        response => {
+          let results: IPaymentOptions = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
   }
 
   /**
@@ -136,16 +144,44 @@ export class ApiService {
     });
   }
 
-  getOrder() {
-
+  getOrder(token: string): Promise<IResponse.IGetOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/get_order", { params: { token: token } })
+        .subscribe(
+        response => {
+          let results: IResponse.IGetOrderResult = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
   }
 
-  deleteFlightOrder() {
-
+  deleteFlightOrder(data): Promise<IResponse.IDeleteFlightOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.IDeleteFlightOrderResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
   }
 
-  paymentFlightOrder() {
-
+  paymentFlightOrder(data): Promise<IResponse.IPaymentFlightOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.IPaymentFlightOrderResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
   }
 
 }
