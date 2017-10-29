@@ -34,6 +34,9 @@ export class PassengerPage {
   isSelect(item) {
     return (item.category === this.category && item.type === 'combobox');
   }
+  isDatetime(item) {
+    return (item.category === this.category && item.type === 'datetime');
+  }
 
   dismiss() {
     this.viewCtrl.dismiss();

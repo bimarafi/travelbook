@@ -8,7 +8,7 @@
       <ion-title align="center">Data Penumpang</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content padding>
     <ion-list *ngFor="let item of required">
       <ion-item *ngIf="isTextBox(item)">
@@ -18,8 +18,12 @@
       <ion-item *ngIf="isSelect(item)">
         <ion-label>{{item.FieldText}}</ion-label>
         <ion-select [(ngModel)]="item.value">
-          <ion-option *ngFor="let subitem of item.resource" [value]="subitem.id">{{subitem.name}}</ion-option>
+          <ion-option *ngFor="let subitem of item.resource" [value]="subitem.id">{{subitem.name || subitem.text}}</ion-option>
         </ion-select>
+      </ion-item>
+      <ion-item *ngIf="isDatetime(item)">
+        <ion-label floating>{{item.FieldText}}</ion-label>
+        <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="item.value"></ion-datetime>
       </ion-item>
     </ion-list>
     <ion-list>
@@ -27,5 +31,5 @@
         <button ion-button round color="secondary" mode="ios" (click)="simpan()">Simpan</button>
       </ion-item>
     </ion-list>
-  
+
   </ion-content>

@@ -56,6 +56,22 @@ export class ApiService {
     });
   }
 
+  getNationality(): Promise<IResponse.IAirportSearchResults> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/nationality")
+        .subscribe(
+        response => {
+          let results: IResponse.IAirportSearchResults = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
+  }
+
+  getPaymentOption() {
+
+  }
+
   /**
    * Cari penerbangan
    * @param {IForm.ISearchFlightFormData} data
@@ -104,6 +120,32 @@ export class ApiService {
         },
         err => reject(err));
     });
+  }
+
+  addFlightOrder(data): Promise<IResponse.ITokenReqResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/add_flight_order", { flight_order: data }, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.ITokenReqResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
+  }
+
+  getOrder() {
+
+  }
+
+  deleteFlightOrder() {
+
+  }
+
+  paymentFlightOrder() {
+
   }
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { IResponse, IDestination } from "../../interfaces";
+import { ApiService } from "../../providers/api-service/api-service";
 
 import { ContactPage } from "../modals/contact/contact";
 import { PassengerPage } from "../modals/passenger/passenger";
@@ -20,12 +21,27 @@ export class IsiDataPage {
   retDet: IDestination;
   required: any;
   requiredVal: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  national: IResponse.IAirportSearchResults;
+  constructor(
+    private api: ApiService,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController) {
     this.data = this.navParams.get('data');
     this.color = this.navParams.get('color');
     this.goDet = this.navParams.get('go_det');
     this.retDet = this.navParams.get('ret_det');
     this.mapRequired();
+
+    this.api.getNationality()
+      .then(data => this.national = data)
+      .catch(err => console.log(err));
+  }
+
+  changeResourceKewarganegaraan() {
+    let index = _.findIndex(this.requiredVal, ['FieldText', 'Kewarganegaraan']);
+    if (index > -1)
+      this.requiredVal[index].resource = this.national.resources;
   }
 
   ionViewDidLoad() {
@@ -61,6 +77,7 @@ export class IsiDataPage {
   }
 
   fillAdultPassengerData(num) {
+    this.changeResourceKewarganegaraan();
     let category = 'adult' + num;
     this.presentModal(PassengerPage, { required: this.requiredVal, category: category });
   }
