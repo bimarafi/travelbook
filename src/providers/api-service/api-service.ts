@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 import { Platform } from 'ionic-angular';
-import 'rxjs/add/operator/map';
-
-import { Observable } from 'rxjs/Observable';
 
 import {
-  IAirportCode, IForm, IResponse, IRequest
+  IAirportCode, IForm, IResponse, IRequest, IPaymentOptions
 } from "../../interfaces";
 /*
   API service v1
@@ -59,6 +56,30 @@ export class ApiService {
     });
   }
 
+  getNationality(): Promise<IResponse.IAirportSearchResults> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/nationality")
+        .subscribe(
+        response => {
+          let results: IResponse.IAirportSearchResults = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
+  }
+
+  getPaymentOption(): Promise<IPaymentOptions> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/payment_options")
+        .subscribe(
+        response => {
+          let results: IPaymentOptions = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
+  }
+
   /**
    * Cari penerbangan
    * @param {IForm.ISearchFlightFormData} data
@@ -97,12 +118,70 @@ export class ApiService {
     });
   }
 
-  getFlightData(data: IRequest.ISearchFlightDataQuery): Observable<IResponse.IFlightDataResult> {
-    return this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
-      .map((response) => {
-        let result: IResponse.IFlightDataResult = response.json();
-        return result;
-      });
+  getFlightData(data: IRequest.ISearchFlightDataQuery): Promise<IResponse.IFlightDataResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
+        .subscribe(
+        response => {
+          let result: IResponse.IFlightDataResult = response.json();
+          resolve(result);
+        },
+        err => reject(err));
+    });
+  }
+
+  addFlightOrder(data): Promise<IResponse.ITokenReqResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/add_flight_order", { flight_order: data }, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.ITokenReqResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
+  }
+
+  getOrder(token: string): Promise<IResponse.IGetOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/get_order", { params: { token: token } })
+        .subscribe(
+        response => {
+          let results: IResponse.IGetOrderResult = response.json();
+          resolve(results);
+        },
+        err => reject(err));
+    });
+  }
+
+  deleteFlightOrder(data): Promise<IResponse.IDeleteFlightOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.IDeleteFlightOrderResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
+  }
+
+  paymentFlightOrder(data): Promise<IResponse.IPaymentFlightOrderResult> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
+        .subscribe(
+          response => {
+            let result: IResponse.IPaymentFlightOrderResult = response.json();
+            console.log(result);
+            resolve(result);
+          },
+          err => reject(err)
+        );
+    });
   }
 
 }

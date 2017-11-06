@@ -11,6 +11,9 @@ export interface IFlight {
   price_adult: number
   price_child: number;
   price_infant: number;
+  count_adult: string;
+  count_child: string;
+  count_infant: string;
   timestamp: Date;
   has_food: boolean;
   multiplier: number;
@@ -30,7 +33,7 @@ export interface IFlight {
   best_deal: boolean;
   duration: string;
   image: string;
-  departure_flight_dat: Date;
+  departure_flight_date: Date;
   departure_flight_date_str: string;
   departure_flight_date_str_short: string;
   arrival_flight_date: Date;
