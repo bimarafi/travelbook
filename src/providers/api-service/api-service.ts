@@ -49,6 +49,9 @@ export class ApiService {
         .subscribe(
         response => {
           let results: IResponse.ITokenReqResult = response.json();
+          if (results.diagnostic.status != "200") {
+            reject(new Error(results.diagnostic.error_msgs));
+          }
           this.token = results.token;
           resolve(results.token);
         },
@@ -105,11 +108,15 @@ export class ApiService {
           .subscribe(
           response => {
             let results: IResponse.IFlightSearchResults = response.json();
+            console.log(results);
             if (data.roundtrip && (results.returns === undefined || results.returns.result.length === 0)) {
               reject(new Error('Returns flight empty'));
             }
             if (results.departures === undefined || results.departures.result.length === 0) {
               reject(new Error('Departures flight empty'));
+            }
+            if (results.diagnostic.status != "200") {
+              reject(new Error(results.diagnostic.error_msgs));
             }
             resolve(results);
           },
@@ -123,8 +130,11 @@ export class ApiService {
       this.http.post(this.API_URL + "v1/get_flight_data", data, { headers: this.headers })
         .subscribe(
         response => {
-          let result: IResponse.IFlightDataResult = response.json();
-          resolve(result);
+          let results: IResponse.IFlightDataResult = response.json();
+          if (results.diagnostic.status != "200") {
+            reject(new Error(results.diagnostic.error_msgs));
+          }
+          resolve(results);
         },
         err => reject(err));
     });
@@ -135,9 +145,11 @@ export class ApiService {
       this.http.post(this.API_URL + "v1/add_flight_order", { flight_order: data }, { headers: this.headers })
         .subscribe(
           response => {
-            let result: IResponse.ITokenReqResult = response.json();
-            console.log(result);
-            resolve(result);
+            let results: IResponse.ITokenReqResult = response.json();
+            if (results.diagnostic.status != "200") {
+              reject(new Error(results.diagnostic.error_msgs));
+            }
+            resolve(results);
           },
           err => reject(err)
         );
@@ -146,10 +158,13 @@ export class ApiService {
 
   getOrder(token: string): Promise<IResponse.IGetOrderResult> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.API_URL + "v1/get_order", { params: { token: token } })
+      this.http.get(this.API_URL + "v1/get_flight_order", { params: { token: token } })
         .subscribe(
         response => {
           let results: IResponse.IGetOrderResult = response.json();
+          if (results.diagnostic.status != "200") {
+            reject(new Error(results.diagnostic.error_msgs));
+          }
           resolve(results);
         },
         err => reject(err));
@@ -161,9 +176,11 @@ export class ApiService {
       this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
         .subscribe(
           response => {
-            let result: IResponse.IDeleteFlightOrderResult = response.json();
-            console.log(result);
-            resolve(result);
+            let results: IResponse.IDeleteFlightOrderResult = response.json();
+            if (results.diagnostic.status != "200") {
+              reject(new Error(results.diagnostic.error_msgs));
+            }
+            resolve(results);
           },
           err => reject(err)
         );
@@ -172,12 +189,14 @@ export class ApiService {
 
   paymentFlightOrder(data): Promise<IResponse.IPaymentFlightOrderResult> {
     return new Promise((resolve, reject) => {
-      this.http.post(this.API_URL + "v1/delete_flight_order", data, { headers: this.headers })
+      this.http.post(this.API_URL + "v1/payment_flight_order", data, { headers: this.headers })
         .subscribe(
           response => {
-            let result: IResponse.IPaymentFlightOrderResult = response.json();
-            console.log(result);
-            resolve(result);
+            let results: IResponse.IPaymentFlightOrderResult = response.json();
+            if (results.diagnostic.status != "200") {
+              reject(new Error(results.diagnostic.error_msgs));
+            }
+            resolve(results);
           },
           err => reject(err)
         );

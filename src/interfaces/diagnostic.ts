@@ -1,4 +1,5 @@
 export interface IDiagnostic {
+  error_msgs: string;
   status: string;
   elapsetime: string;
   memoryusage: string;
