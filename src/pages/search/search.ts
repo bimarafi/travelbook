@@ -50,6 +50,7 @@ export class SearchPage extends SearchPageValidator {
       .then(token => {
         this.token = token
         this.loading.dismiss();
+        this.api.getHotels("Jakarta", this.token);
       })
       .catch(err => console.log(err.message));
   }

@@ -5,3 +5,4 @@ export { IFlightSearchResults } from "./flight-search-results";
 export { IGetOrderResult } from './get-order-result';
 export { IDeleteFlightOrderResult } from './delete-flight-order-result';
 export { IPaymentFlightOrderResult } from './payment-flight-order-result';
+export { IHotelSearchResults } from "./hotel-search-results";

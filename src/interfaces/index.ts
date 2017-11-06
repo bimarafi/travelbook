@@ -9,6 +9,9 @@ export { IPaymentFlightOrderDetail } from './payment-flight-order-detail';
 export { IPaymentOptions } from './payment-options';
 export { IPaymentOptionsAtributes } from './payment-options-atributes';
 export { IPaychannelsData } from './paychannels-data';
+export { ISearchQuery } from "./search-query";
+export { IHotel } from "./hotel";
+export { IPagination } from "./pagination";
 
 import * as IForm from "./form";
 export { IForm };
