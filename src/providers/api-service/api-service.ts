@@ -12,6 +12,7 @@ import {
 @Injectable()
 export class ApiService {
   API_URL: string = 'http://api.traveltravelbook.com/';
+  API_MC_BILL_PAYMENT = 'https://mcbill.mcpayment.co.id/';
   headers: Headers;
   token: string;
   constructor(public http: Http, public datePipe: DatePipe, public platform: Platform) {
@@ -81,6 +82,21 @@ export class ApiService {
           resolve(results);
         },
         err => reject(err));
+    });
+  }
+
+  billPaymentMC(data: IRequest.IMCBillPaymentQuery): Promise<IResponse.IMCBillPaymentResults> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_MC_BILL_PAYMENT + "/payment/seamless/", { params: data })
+      .subscribe(
+      response => {
+        let results: IResponse.IMCBillPaymentResults = response.json();
+        //if (results.diagnostic.status != "200") {
+        //  reject(new Error(results.diagnostic.error_msgs));
+        //}
+        resolve(results);
+      },
+      err => reject(err));
     });
   }
 

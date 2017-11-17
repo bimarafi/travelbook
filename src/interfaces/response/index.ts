@@ -7,3 +7,4 @@ export { IDeleteFlightOrderResult } from './delete-flight-order-result';
 export { IPaymentFlightOrderResult } from './payment-flight-order-result';
 export { IHotelSearchResults } from "./hotel-search-results";
 export { IHotelDetailResults } from "./hotel-detail-results";
+export { IMCBillPaymentResults } from "./mc-bill-payment-results";
