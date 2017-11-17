@@ -222,14 +222,30 @@ export class ApiService {
 
   searchHotel(data: IRequest.ISearchHotelQuery): Promise<IResponse.IHotelSearchResults> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.API_URL + "v1/search_hotel", { params: data })
+      this.http.get(this.API_URL + "v1/search_hotel.json", { params: data })
         .subscribe(
         response => {
           let results: IResponse.IHotelSearchResults = response.json();
-          console.log(results);
+          console.log(response.json());
           if (results.diagnostic.status != "200") {
             reject(new Error(results.diagnostic.error_msgs));
           }
+          resolve(results);
+        },
+        err => reject(err));
+    });
+  }
+
+  detailHotel(data: IRequest.ISearchHotelDetailQuery): Promise<IResponse.IHotelDetailResults> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + "v1/hotel_detail", { params: data })
+        .subscribe(
+        response => {
+          let results = response.json();
+          console.log(response.json());
+          //if (results.diagnostic.status != "200") {
+          //  reject(new Error(results.diagnostic.error_msgs));
+          //}
           resolve(results);
         },
         err => reject(err));
