@@ -12,6 +12,8 @@ export { IPaychannelsData } from './paychannels-data';
 export { ISearchQuery } from "./search-query";
 export { IHotel } from "./hotel";
 export { IPagination } from "./pagination";
+export { IBreadcrumb } from "./breadcrumb";
+export { INearbyAttraction } from "./nearby-attraction";
 
 import * as IForm from "./form";
 export { IForm };

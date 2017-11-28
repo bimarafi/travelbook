@@ -1,15 +1,15 @@
 export interface IHotel {
-  province_name: string;
-  kecamatan_name: string;
-  kelurahan_name: string;
-  business_uri: string;
-  photo_primary: string;
-  star_rating: string;
   id: string;
   room_available: string;
   latitude: string;
   longitude: string;
+  star_rating: string;
+  business_uri: string;
+  province_name: string;
+  kecamatan_name: string;
+  kelurahan_name: string;
   room_max_occupancies: number;
+  photo_primary: string;
   rating: string;
   tripadvisor_avg_rating: {
     avg_rating: number
@@ -27,4 +27,19 @@ export interface IHotel {
   regional: string;
   name: string;
   hotel_id: string;
+  room_id: string;
+  currency: string;
+  minimun_stays: number;
+  with_breakfast: number;
+  ext_source: string;
+  refund_policy: string;
+  room_description: string;
+  all_photo_room: string[];
+  photo_url: string;
+  room_name: string;
+  promo_title: string;
+  value_added: string;
+  bookUri: string;
+  room_facility: string[];
+  additional_surcharge_currency: string;
 }

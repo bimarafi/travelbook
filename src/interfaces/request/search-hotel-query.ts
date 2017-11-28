@@ -5,5 +5,6 @@ export interface ISearchHotelQuery {
   room: string;
   night: number;
   adult: string;
+  child: string;
   token: string;
 }
